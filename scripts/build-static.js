@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
-const sourceHtml = path.join(root, "landing-page.html");
+const sourceHtml = path.join(root, "index.html");
 const sourceAssets = path.join(root, "assets");
 
 function copyDirectory(source, destination) {
@@ -25,7 +25,7 @@ function copyDirectory(source, destination) {
 }
 
 if (!fs.existsSync(sourceHtml)) {
-  throw new Error("landing-page.html nao encontrado.");
+  throw new Error("index.html nao encontrado.");
 }
 
 if (!fs.existsSync(sourceAssets)) {
