@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barletta Consultoria | Mentoria Micro-SaaS com IA</title>
+  <meta name="description" content="Mentoria premium para construir micro-SaaS com IA, validar problemas reais e chegar ao primeiro cliente pagante em 12 semanas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #020201;
+      --ink: #070604;
+      --graphite: #11100d;
+      --graphite-2: #19150f;
+      --gold: #d6a33f;
+      --gold-bright: #ffe08a;
+      --gold-soft: #b98227;
+      --gold-deep: #6f4514;
+      --champagne: #fff1c6;
+      --pearl: #f8f1df;
+      --smoke: #bbb2a1;
+      --muted: #8c8375;
+      --line: rgba(255, 224, 138, 0.22);
+      --line-strong: rgba(255, 224, 138, 0.38);
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.46);
+      --radius: 8px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--pearl);
+      background:
+        linear-gradient(180deg, rgba(255, 224, 138, .08) 0, transparent 38rem),
+        radial-gradient(ellipse at 50% -12%, rgba(214, 163, 63, .24), transparent 48%),
+        var(--black);
+      font-family: "Inter", Arial, sans-serif;
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 224, 138, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 224, 138, .035) 1px, transparent 1px);
+      background-size: 92px 92px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.86), transparent 78%);
+      animation: gridDrift 22s linear infinite;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: .42;
+      background-image:
+        linear-gradient(115deg, transparent 0%, rgba(255, 224, 138, .08) 46%, transparent 56%),
+        linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .82) 72%, #020201 100%);
+      background-size: 180% 180%, 100% 100%;
+      animation: lightSweep 13s var(--ease) infinite;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .14;
+      background-image:
+        repeating-radial-gradient(circle at 12% 24%, rgba(255,255,255,.15) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 5px);
+      mix-blend-mode: screen;
+    }
+
+    #gold-field {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .72;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      padding: 18px 0;
+      transition: background .35s var(--ease), border-color .35s var(--ease), padding .35s var(--ease);
+    }
+
+    .site-header.is-scrolled {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 224, 138, .14);
+      background: rgba(2, 2, 1, .78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border: 0;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 26px rgba(214, 163, 63, .2));
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: rgba(248, 241, 223, .72);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      position: relative;
+      text-decoration: none;
+      transition: color .25s var(--ease);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -7px;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: right;
+      background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+      transition: transform .32s var(--ease);
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--gold-bright);
+    }
+
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 224, 138, .45);
+      border-radius: 6px;
+      color: var(--gold-bright);
+      background: rgba(255, 224, 138, .06);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+    }
+
+    .header-cta:hover,
+    .header-cta:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 224, 138, .12);
+      box-shadow: 0 12px 34px rgba(214, 163, 63, .14);
+    }
+
+    main {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      align-items: center;
+      padding: 128px 0 70px;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 7% -12% auto auto;
+      width: min(820px, 78vw);
+      aspect-ratio: 1;
+      z-index: -2;
+      border: 1px solid rgba(255, 224, 138, .12);
+      background:
+        conic-gradient(from 120deg, transparent, rgba(255, 224, 138, .16), transparent 26%, transparent 64%, rgba(214, 163, 63, .13), transparent),
+        radial-gradient(circle, rgba(214, 163, 63, .18), transparent 55%);
+      transform: rotate(-8deg);
+      animation: haloTurn 24s linear infinite;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 26vh;
+      z-index: -1;
+      background: linear-gradient(180deg, transparent, var(--black));
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+      align-items: center;
+      gap: clamp(28px, 6vw, 84px);
+    }
+
+    .hero-copy {
+      max-width: 780px;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: rgba(248, 241, 223, .74);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .status-line span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 224, 138, .22);
+      border-radius: 999px;
+      background: rgba(10, 8, 5, .58);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .02);
+    }
+
+    .status-line .live {
+      gap: 8px;
+      color: var(--gold-bright);
+    }
+
+    .status-line .live::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 0 0 rgba(255, 224, 138, .72);
+      animation: pulseDot 1.8s ease-out infinite;
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      color: var(--gold-bright);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(13px, 1.2vw, 17px);
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(42px, 7.6vw, 105px);
+      line-height: .95;
+      color: #fff8de;
+      text-wrap: balance;
+    }
+
+    .gold-text {
+      color: transparent;
+      background: linear-gradient(110deg, #8a5a1b 0%, #ffe99e 22%, #cf9430 42%, #fff5c7 58%, #8a5a1b 100%);
+      background-size: 240% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: goldShimmer 5.8s ease-in-out infinite;
+    }
+
+    .hero-lead {
+      max-width: 640px;
+      margin-top: 26px;
+      color: rgba(248, 241, 223, .78);
+      font-size: clamp(17px, 1.55vw, 21px);
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      isolation: isolate;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: -40% -70%;
+      z-index: -1;
+      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.46), transparent 62%);
+      transform: translateX(-55%);
+      transition: transform .8s var(--ease);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn:hover::before,
+    .btn:focus-visible::before {
+      transform: translateX(55%);
+    }
+
+    .btn-primary {
+      color: #120c03;
+      background:
+        linear-gradient(135deg, #ffe99c 0%, #d19a34 46%, #8b5b1d 100%);
+      box-shadow: 0 18px 45px rgba(214, 163, 63, .24), inset 0 1px 0 rgba(255,255,255,.56);
+    }
+
+    .btn-secondary {
+      color: var(--champagne);
+      border-color: rgba(255, 224, 138, .34);
+      background: rgba(255, 224, 138, .04);
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 560px;
+      margin-top: 24px;
+      color: rgba(248, 241, 223, .58);
+      font-size: 13px;
+    }
+
+    .hero-note::before {
+      content: "";
+      width: 44px;
+      height: 1px;
+      flex: 0 0 auto;
+      background: linear-gradient(90deg, var(--gold-bright), transparent);
+    }
+
+    .hero-emblem {
+      position: relative;
+      min-height: 540px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 18px;
+      transform-style: preserve-3d;
+    }
+
+    .hero-emblem::before,
+    .hero-emblem::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 224, 138, .18);
+      animation: frameFloat 7s ease-in-out infinite;
+    }
+
+    .hero-emblem::before {
+      inset: 22px 38px;
+      transform: rotate(7deg);
+    }
+
+    .hero-emblem::after {
+      inset: 58px 0;
+      transform: rotate(-9deg);
+      animation-delay: -2.3s;
+    }
+
+    .logo-stage {
+      position: relative;
+      z-index: 2;
+      width: min(420px, 82vw);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 224, 138, .2);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.06), transparent 28%),
+        radial-gradient(circle at 50% 44%, rgba(255, 224, 138, .12), transparent 56%),
+        rgba(7, 6, 4, .72);
+      box-shadow: var(--shadow), inset 0 0 80px rgba(214, 163, 63, .08);
+      transform: translateZ(36px);
+      animation: stageRise 7s ease-in-out infinite;
+    }
+
+    .logo-stage::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(255, 224, 138, .74), transparent 30%, rgba(255, 224, 138, .18) 70%, rgba(255, 224, 138, .68)) border-box;
+      mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .logo-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, transparent 42%, rgba(255, 255, 255, .18) 49%, transparent 57%, transparent 100%);
+      transform: translateX(-100%);
+      animation: emblemGlint 4.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .logo-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: drop-shadow(0 24px 42px rgba(0,0,0,.58));
+    }
+
+    .vault-card small,
+    .method-card small,
+    .investment-card small {
+      display: block;
+      color: var(--gold-bright);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .availability {
+      position: absolute;
+      right: 6px;
+      top: 72px;
+      width: min(210px, 58vw);
+      padding: 15px;
+      border: 1px solid rgba(255, 224, 138, .22);
+      border-radius: var(--radius);
+      background: rgba(8, 7, 5, .72);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 48px rgba(0,0,0,.28);
+    }
+
+    .availability span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .availability b {
+      display: block;
+      margin-top: 5px;
+      color: var(--gold-bright);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 54px;
+      border: 1px solid rgba(255, 224, 138, .32);
+      border-radius: 999px;
+      transform: translateX(-50%);
+    }
+
+    .scroll-cue::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      animation: cueDrop 1.7s ease-in-out infinite;
+    }
+
+    section {
+      position: relative;
+      padding: clamp(74px, 10vw, 126px) 0;
+      border-top: 1px solid rgba(255, 224, 138, .12);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(260px, .62fr);
+      align-items: end;
+      gap: 38px;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 760px;
+      color: #fff8de;
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: .98;
+      text-wrap: balance;
+    }
+
+    .section-head p,
+    .split-copy p,
+    .method-card p,
+    .vault-card p,
+    .offer-item p,
+    .faq p,
+    .application-copy p {
+      color: rgba(248, 241, 223, .68);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      position: relative;
+      min-height: 166px;
+      padding: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 224, 138, .18);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.055), transparent 40%),
+        rgba(14, 12, 9, .72);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .metric::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+      transform: translateX(-100%);
+      animation: baseLine 3.8s var(--ease) infinite;
+    }
+
+    .metric b {
+      display: block;
+      color: var(--gold-bright);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(34px, 4.2vw, 52px);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 12px;
+      color: rgba(248, 241, 223, .72);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, .74fr) minmax(280px, .52fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .split-copy {
+      padding: clamp(26px, 4vw, 42px);
+      border: 1px solid rgba(255, 224, 138, .16);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+    }
+
+    .split-copy h3 {
+      max-width: 720px;
+      color: var(--pearl);
+      font-size: clamp(28px, 3.2vw, 46px);
+      line-height: 1.05;
+    }
+
+    .split-copy p {
+      max-width: 720px;
+      margin-top: 18px;
+      font-size: 17px;
+    }
+
+    .proof-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .proof-list li {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      color: rgba(248, 241, 223, .78);
+    }
+
+    .proof-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 8px;
+      border: 1px solid var(--gold-bright);
+      background: rgba(255, 224, 138, .08);
+      transform: rotate(45deg);
+      box-shadow: 0 0 18px rgba(214, 163, 63, .22);
+    }
+
+    .vault {
+      display: grid;
+      gap: 14px;
+    }
+
+    .vault-card,
+    .method-card,
+    .offer-item,
+    .investment-card,
+    .faq article {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 224, 138, .16);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.06), transparent 38%),
+        rgba(12, 10, 7, .7);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .vault-card {
+      min-height: 154px;
+      padding: 24px;
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease);
+    }
+
+    .vault-card:hover {
+      border-color: rgba(255, 224, 138, .36);
+      box-shadow: 0 18px 45px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .vault-card strong,
+    .method-card strong,
+    .offer-item strong {
+      display: block;
+      margin-top: 12px;
+      color: #fff8de;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .vault-card p,
+    .method-card p,
+    .offer-item p {
+      margin-top: 11px;
+      font-size: 14.5px;
+    }
+
+    .method-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .method-track::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 224, 138, .55), transparent);
+    }
+
+    .method-card {
+      min-height: 255px;
+      padding: 22px;
+    }
+
+    .method-card::before {
+      content: attr(data-step);
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 36px;
+      border: 1px solid rgba(255, 224, 138, .45);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      background: var(--black);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 0 0 8px rgba(2,2,1,.92), 0 0 24px rgba(214, 163, 63, .16);
+    }
+
+    .method-card:nth-child(even) {
+      transform: translateY(28px);
+    }
+
+    .experience {
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 224, 138, .04), transparent),
+        #050403;
+    }
+
+    .experience::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 224, 138, .08), transparent),
+        repeating-linear-gradient(120deg, rgba(255, 224, 138, .04) 0 1px, transparent 1px 18px);
+      opacity: .62;
+      transform: skewY(-4deg) scale(1.08);
+    }
+
+    .experience .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .offer-item {
+      min-height: 220px;
+      padding: 24px;
+    }
+
+    .offer-item::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 224, 138, .52), transparent);
+    }
+
+    .offer-item .number {
+      color: rgba(255, 224, 138, .46);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+
+    .investment {
+      padding-bottom: clamp(76px, 11vw, 140px);
+    }
+
+    .investment-card {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, .48fr);
+      gap: 30px;
+      padding: clamp(26px, 5vw, 52px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.07), transparent 38%),
+        linear-gradient(180deg, rgba(214, 163, 63, .12), rgba(12,10,7,.82));
+    }
+
+    .price {
+      margin-top: 18px;
+      color: transparent;
+      background: linear-gradient(110deg, #ffe99e, #bf8126 42%, #fff6ce 64%, #8f5c1a);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(46px, 7vw, 88px);
+      font-weight: 600;
+      line-height: .95;
+      animation: goldShimmer 6s ease-in-out infinite;
+    }
+
+    .investment-card ul {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+      color: rgba(248, 241, 223, .74);
+    }
+
+    .investment-lead {
+      max-width: 650px;
+      margin-top: 22px;
+      color: rgba(248, 241, 223, .72);
+      font-size: 17px;
+    }
+
+    .investment-card li {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+    }
+
+    .investment-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 18px rgba(255, 224, 138, .35);
+    }
+
+    .investment-aside {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      padding: 26px;
+      border: 1px solid rgba(255, 224, 138, .18);
+      border-radius: var(--radius);
+      background: rgba(2, 2, 1, .42);
+    }
+
+    .investment-aside strong {
+      color: #fff8de;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .investment-aside p {
+      color: rgba(248, 241, 223, .68);
+    }
+
+    .selection-steps {
+      display: grid;
+      gap: 14px;
+      margin: 2px 0 0;
+      counter-reset: selection;
+    }
+
+    .selection-steps li {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      color: rgba(248, 241, 223, .68);
+      list-style: none;
+    }
+
+    .selection-steps li::before {
+      counter-increment: selection;
+      content: counter(selection);
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255, 224, 138, .38);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      background: rgba(255, 224, 138, .06);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 0 22px rgba(214, 163, 63, .14);
+    }
+
+    .selection-steps strong {
+      display: block;
+      color: #fff8de;
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .selection-steps span {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .cta-disclaimer {
+      margin-top: -4px;
+      color: rgba(248, 241, 223, .54);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .application {
+      background:
+        linear-gradient(180deg, transparent, rgba(255, 224, 138, .05)),
+        var(--black);
+    }
+
+    .application-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(310px, .56fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .application-copy h2 {
+      margin-bottom: 20px;
+    }
+
+    .application-copy p {
+      max-width: 600px;
+      font-size: 17px;
+    }
+
+    .application-form {
+      position: relative;
+      display: grid;
+      gap: 13px;
+      padding: 24px;
+      border: 1px solid rgba(255, 224, 138, .2);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.07), transparent 36%),
+        rgba(10, 8, 5, .78);
+      box-shadow: 0 22px 70px rgba(0,0,0,.34);
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: var(--smoke);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(255, 224, 138, .2);
+      border-radius: 6px;
+      outline: none;
+      color: var(--pearl);
+      background: rgba(2, 2, 1, .58);
+      padding: 14px 14px;
+      transition: border-color .22s var(--ease), box-shadow .22s var(--ease), background .22s var(--ease);
+    }
+
+    .field textarea {
+      min-height: 102px;
+      resize: vertical;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(248, 241, 223, .34);
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(255, 224, 138, .56);
+      background: rgba(2, 2, 1, .78);
+      box-shadow: 0 0 0 4px rgba(214, 163, 63, .12);
+    }
+
+    .application-form button {
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .application-form button:disabled {
+      cursor: wait;
+      opacity: .88;
+    }
+
+    .form-footnote {
+      color: rgba(248, 241, 223, .48);
+      font-size: 12px;
+    }
+
+    .form-success {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      align-items: center;
+      gap: 14px;
+      max-height: 0;
+      margin-top: 0;
+      padding: 0 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 224, 138, .38);
+      border-radius: 8px;
+      opacity: 0;
+      color: #130d03;
+      background:
+        linear-gradient(135deg, rgba(255, 246, 198, .98), rgba(214, 163, 63, .94)),
+        var(--gold);
+      box-shadow: 0 18px 48px rgba(214, 163, 63, .22), inset 0 1px 0 rgba(255,255,255,.58);
+      transform: translateY(10px);
+      transition: max-height .42s var(--ease), margin .42s var(--ease), padding .42s var(--ease), opacity .3s var(--ease), transform .42s var(--ease);
+    }
+
+    .form-success.is-visible {
+      max-height: 170px;
+      margin-top: 4px;
+      padding: 16px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .success-icon,
+    .toast-check {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #120c03;
+      box-shadow: 0 0 0 7px rgba(18, 12, 3, .08), 0 0 28px rgba(255, 224, 138, .42);
+    }
+
+    .success-icon::before,
+    .toast-check::before {
+      content: "";
+      width: 18px;
+      height: 10px;
+      border-left: 4px solid var(--gold-bright);
+      border-bottom: 4px solid var(--gold-bright);
+      transform: translateY(-2px) rotate(-45deg);
+    }
+
+    .success-copy strong,
+    .success-toast strong {
+      display: block;
+      color: #130d03;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .success-copy span,
+    .success-toast span span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(19, 13, 3, .72);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .success-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 80;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      align-items: center;
+      gap: 16px;
+      width: min(560px, calc(100% - 32px));
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 224, 138, .48);
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255, 246, 198, .98), rgba(210, 151, 47, .96)),
+        var(--gold);
+      box-shadow: 0 26px 80px rgba(0,0,0,.52), 0 0 52px rgba(214, 163, 63, .3);
+      transform: translate(-50%, 26px) scale(.96);
+      transition: opacity .32s var(--ease), transform .42s var(--ease);
+    }
+
+    .success-toast::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.38) 46%, transparent 58%);
+      transform: translateX(-105%);
+    }
+
+    .success-toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    .success-toast.is-visible::before {
+      animation: toastGlint 1.25s var(--ease) .12s 1;
+    }
+
+    .faq {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .faq article {
+      min-height: 190px;
+      padding: 24px;
+    }
+
+    .faq h3 {
+      color: #fff8de;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+
+    .faq p {
+      margin-top: 12px;
+      font-size: 14.5px;
+    }
+
+    footer {
+      padding: 34px 0 46px;
+      border-top: 1px solid rgba(255, 224, 138, .12);
+      color: rgba(248, 241, 223, .48);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .footer-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-mark::before,
+    .footer-mark::after {
+      content: "";
+      width: 54px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 224, 138, .62));
+    }
+
+    .footer-mark::after {
+      background: linear-gradient(90deg, rgba(255, 224, 138, .62), transparent);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes gridDrift {
+      to { background-position: 92px 92px; }
+    }
+
+    @keyframes lightSweep {
+      0%, 100% { background-position: 0% 50%, 0 0; }
+      46% { background-position: 92% 50%, 0 0; }
+    }
+
+    @keyframes haloTurn {
+      to { transform: rotate(352deg); }
+    }
+
+    @keyframes goldShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(255, 224, 138, .72); }
+      100% { box-shadow: 0 0 0 14px rgba(255, 224, 138, 0); }
+    }
+
+    @keyframes frameFloat {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -14px; }
+    }
+
+    @keyframes stageRise {
+      0%, 100% { transform: translateZ(36px) translateY(0); }
+      50% { transform: translateZ(36px) translateY(-13px); }
+    }
+
+    @keyframes emblemGlint {
+      0%, 36% { transform: translateX(-110%); }
+      58%, 100% { transform: translateX(110%); }
+    }
+
+    @keyframes cueDrop {
+      0% { transform: translateY(-12px); opacity: 0; }
+      35% { opacity: 1; }
+      100% { transform: translateY(13px); opacity: 0; }
+    }
+
+    @keyframes baseLine {
+      0%, 32% { transform: translateX(-100%); }
+      72%, 100% { transform: translateX(100%); }
+    }
+
+    @keyframes toastGlint {
+      to { transform: translateX(105%); }
+    }
+
+    @media (max-width: 980px) {
+      .header-cta {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 116px;
+      }
+
+      .hero-grid,
+      .split,
+      .investment-card,
+      .application-grid,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-emblem {
+        min-height: 420px;
+        order: -1;
+      }
+
+      .availability {
+        right: 18px;
+        top: 34px;
+      }
+
+      .method-track,
+      .offer-grid,
+      .metrics,
+      .faq {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .method-track::before {
+        display: none;
+      }
+
+      .method-card:nth-child(even) {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .brand img {
+        width: 52px;
+        height: 52px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 104px 0 74px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 15vw, 70px);
+      }
+
+      .hero-emblem {
+        min-height: 330px;
+      }
+
+      .hero-emblem::before,
+      .hero-emblem::after {
+        display: none;
+      }
+
+      .logo-stage {
+        width: min(292px, 86vw);
+      }
+
+      .availability {
+        width: 156px;
+        right: 8px;
+        top: 12px;
+      }
+
+      .availability b {
+        font-size: 24px;
+      }
+
+      .status-line span {
+        min-height: 30px;
+        font-size: 10px;
+      }
+
+      .cta-row {
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+        min-height: 56px;
+        text-align: center;
+      }
+
+      .form-success,
+      .success-toast {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .success-icon,
+      .toast-check {
+        margin: 0 auto;
+      }
+
+      .method-track,
+      .offer-grid,
+      .metrics,
+      .faq {
+        grid-template-columns: 1fr;
+      }
+
+      .metric {
+        min-height: 138px;
+      }
+
+      section {
+        padding: 68px 0;
+      }
+
+      .footer-mark {
+        gap: 10px;
+        letter-spacing: .08em;
+      }
+
+      .footer-mark::before,
+      .footer-mark::after {
+        width: 30px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      #gold-field {
+        display: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gold-field" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header" id="topo">
+    <div class="wrap nav-row">
+      <a class="brand" href="#topo" aria-label="Barletta Consultoria">
+        <img src="assets/barletta-header-logo.png" alt="Barletta Consultoria">
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#metodo">Método</a>
+        <a href="#mesa">Experiência</a>
+        <a href="#selecao">Seleção</a>
+      </nav>
+      <a class="header-cta" href="#aplicar">Aplicar agora</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <div class="status-line">
+            <span class="live">Turma Fundadores</span>
+            <span>10 vagas privadas</span>
+            <span>12 semanas</span>
+          </div>
+          <p class="eyebrow">Mentoria Micro-SaaS com IA</p>
+          <h1 id="hero-title">Construa um ativo digital <span class="gold-text">premium</span> com IA.</h1>
+          <p class="hero-lead">Da escolha do problema ao primeiro cliente pagante, com um método de validação, construção e aquisição criado para empreendedores que querem entrar no jogo com sofisticação, velocidade e profundidade.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#aplicar">Aplicar para a turma</a>
+            <a class="btn btn-secondary" href="#metodo">Ver método privado</a>
+          </div>
+          <p class="hero-note">Não é uma aula de prompts. É uma sala de execução para transformar conhecimento, IA e sistemas em receita recorrente.</p>
+        </div>
+
+        <div class="hero-emblem reveal" aria-hidden="true">
+          <div class="availability">
+            <span>Entrada por aplicação</span>
+            <b>10</b>
+            <span>lugares</span>
+          </div>
+          <div class="logo-stage">
+            <img src="assets/barletta-logo.png" alt="">
+          </div>
+        </div>
+      </div>
+      <span class="scroll-cue" aria-hidden="true"></span>
+    </section>
+
+    <section id="exclusivo" aria-labelledby="exclusivo-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">O novo tipo de fundador</p>
+            <h2 id="exclusivo-title">A IA reduziu o custo de construir. O filtro agora é visão de negócio.</h2>
+          </div>
+          <p>Quem aprende a identificar dores caras, empacotar uma solução simples e lançar com cadência cria ativos digitais antes que o mercado perceba a oportunidade.</p>
+        </div>
+
+        <div class="metrics">
+          <div class="metric reveal">
+            <b data-count="12">0</b>
+            <span>semanas de execução guiada</span>
+          </div>
+          <div class="metric reveal">
+            <b data-count="10">0</b>
+            <span>alunos por turma</span>
+          </div>
+          <div class="metric reveal">
+            <b data-count="1">0</b>
+            <span>produto publicado e pronto para vender</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo" aria-labelledby="metodo-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">Método Barletta</p>
+            <h2 id="metodo-title">Um processo para não gastar meses criando algo que ninguém paga.</h2>
+          </div>
+          <p>Você avança em sprints, com entregáveis objetivos e decisões de negócio a cada etapa. A IA entra como alavanca, não como distração.</p>
+        </div>
+
+        <div class="method-track">
+          <article class="method-card reveal" data-step="01">
+            <small>Diagnóstico</small>
+            <strong>Problema caro</strong>
+            <p>Mapeie nichos, dores operacionais e oportunidades onde empresas ou profissionais já perdem tempo, dinheiro ou controle.</p>
+          </article>
+          <article class="method-card reveal" data-step="02">
+            <small>Validação</small>
+            <strong>Oferta antes do código</strong>
+            <p>Converta a dor em promessa clara, entrevista, landing, lista de espera e sinais reais de compra.</p>
+          </article>
+          <article class="method-card reveal" data-step="03">
+            <small>Construção</small>
+            <strong>MVP com IA</strong>
+            <p>Use base pronta, no-code, low-code ou stack developer para colocar login, banco, fluxo principal e automações no ar.</p>
+          </article>
+          <article class="method-card reveal" data-step="04">
+            <small>Aquisição</small>
+            <strong>Primeiros clientes</strong>
+            <p>Crie abordagem comercial, demonstração, conteúdo de prova e rotina de contato para vender sem depender de sorte.</p>
+          </article>
+          <article class="method-card reveal" data-step="05">
+            <small>Escala</small>
+            <strong>Produto como ativo</strong>
+            <p>Organize métricas, onboarding, suporte e próximos recursos para transformar o MVP em uma operação recorrente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="mesa" aria-labelledby="mesa-title">
+      <div class="wrap">
+        <div class="split">
+          <div class="split-copy reveal">
+            <p class="section-kicker">Mesa de Fundadores</p>
+            <h2 id="mesa-title">Uma mentoria com clima de conselho privado.</h2>
+            <p>Você não entra para assistir conteúdo acumulado. Entra para tomar decisões, receber revisão direta e construir um produto que possa ser demonstrado, vendido e melhorado com clareza.</p>
+            <ul class="proof-list">
+              <li><span><strong>Engenharia aplicada:</strong> base de sistemas reais, integrações, arquitetura e entrega em produção.</span></li>
+              <li><span><strong>Negócio antes da vaidade:</strong> validação, precificação, nicho, oferta e prova de demanda.</span></li>
+              <li><span><strong>IA como vantagem operacional:</strong> copilotos, automações, análise de dados, geração de código e suporte ao cliente.</span></li>
+            </ul>
+          </div>
+
+          <div class="vault">
+            <article class="vault-card reveal" data-tilt>
+              <small>Acompanhamento</small>
+              <strong>Encontros semanais ao vivo</strong>
+              <p>Revisão do progresso, bloqueios técnicos, oferta, produto e próximos passos.</p>
+            </article>
+            <article class="vault-card reveal" data-tilt>
+              <small>Stack</small>
+              <strong>Base pronta para acelerar</strong>
+              <p>Login, banco de dados, pagamentos, IA e fluxo central para reduzir tempo de construção.</p>
+            </article>
+            <article class="vault-card reveal" data-tilt>
+              <small>Ambiente</small>
+              <strong>Comunidade de execução</strong>
+              <p>Alunos construindo em paralelo, trocando decisões, aprendizados e oportunidades.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oferta" aria-labelledby="oferta-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">O que está incluso</p>
+            <h2 id="oferta-title">Uma estrutura completa para sair da ideia e chegar ao mercado.</h2>
+          </div>
+          <p>O objetivo é encurtar a distância entre inspiração e receita. Cada módulo existe para gerar uma decisão, um ativo ou uma conversa real com cliente.</p>
+        </div>
+
+        <div class="offer-grid">
+          <article class="offer-item reveal">
+            <span class="number">01</span>
+            <strong>Mapa de oportunidade</strong>
+            <p>Escolha de nicho, priorização de dores e desenho da primeira hipótese comercial.</p>
+          </article>
+          <article class="offer-item reveal">
+            <span class="number">02</span>
+            <strong>Validação de demanda</strong>
+            <p>Scripts de entrevista, página de pré-venda, lista de espera e critérios para seguir ou pivotar.</p>
+          </article>
+          <article class="offer-item reveal">
+            <span class="number">03</span>
+            <strong>MVP funcional</strong>
+            <p>Produto com fluxo essencial, integração de IA e estrutura para operar os primeiros usuários.</p>
+          </article>
+          <article class="offer-item reveal">
+            <span class="number">04</span>
+            <strong>Aquisição inicial</strong>
+            <p>Rotina de prospecção, mensagens, demonstração e pipeline para fechar os primeiros clientes.</p>
+          </article>
+          <article class="offer-item reveal">
+            <span class="number">05</span>
+            <strong>Revisões estratégicas</strong>
+            <p>Análise do produto, proposta de valor, tecnologia e posicionamento ao longo das 12 semanas.</p>
+          </article>
+          <article class="offer-item reveal">
+            <span class="number">06</span>
+            <strong>Plano de continuidade</strong>
+            <p>Próximos recursos, métricas, suporte e caminhos para transformar o MVP em operação.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="selecao" class="investment" aria-labelledby="selecao-title">
+      <div class="wrap">
+        <div class="investment-card reveal">
+          <div>
+            <small>Turma Fundadores • Vagas limitadas</small>
+            <h2 id="selecao-title">Não procuramos mais alunos. Procuramos os próximos fundadores.</h2>
+            <p class="investment-lead">Uma turma reduzida para quem quer transformar uma ideia, conhecimento de mercado ou oportunidade em um produto digital real.</p>
+            <ul>
+              <li>Acompanhamento próximo da ideia ao lançamento.</li>
+              <li>Estratégia, validação, produto e aquisição dos primeiros clientes.</li>
+              <li>Entrada limitada para preservar a qualidade do acompanhamento.</li>
+            </ul>
+          </div>
+          <aside class="investment-aside">
+            <small>Como funciona a seleção</small>
+            <ol class="selection-steps">
+              <li>
+                <span><strong>Aplicação</strong><span>Conte brevemente seu momento e o que pretende construir.</span></span>
+              </li>
+              <li>
+                <span><strong>Conversa</strong><span>Entendemos seu objetivo e avaliamos o encaixe com o programa.</span></span>
+              </li>
+              <li>
+                <span><strong>Convite</strong><span>Havendo compatibilidade, apresentamos a estrutura da mentoria e as condições de entrada.</span></span>
+              </li>
+            </ol>
+            <p>Queremos entender sua ideia, momento atual e objetivo antes de recomendar a entrada no programa.</p>
+            <a class="btn btn-primary" href="#aplicar">Quero me candidatar</a>
+            <p class="cta-disclaimer">A aplicação não gera qualquer compromisso de contratação.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">Perguntas certas</p>
+            <h2 id="faq-title">Para quem essa mentoria foi desenhada?</h2>
+          </div>
+          <p>Para pessoas que querem empreender usando IA sem cair na armadilha de colecionar ferramentas e abandonar o produto no meio.</p>
+        </div>
+
+        <div class="faq">
+          <article class="reveal">
+            <h3>Preciso saber programar?</h3>
+            <p>Não necessariamente. A mentoria aceita trilhas no-code, low-code e developer. O foco é construir um produto vendável, usando a rota mais eficiente para o seu perfil.</p>
+          </article>
+          <article class="reveal">
+            <h3>Já preciso ter uma ideia?</h3>
+            <p>Ajuda, mas não é obrigatório. O método começa com descoberta de problemas e priorização de oportunidades com potencial de pagamento.</p>
+          </article>
+          <article class="reveal">
+            <h3>Vou sair com produto pronto?</h3>
+            <p>A meta é chegar a um MVP publicado, com oferta clara e plano de aquisição. O resultado depende da sua execução entre os encontros.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="application" id="aplicar" aria-labelledby="aplicar-title">
+      <div class="wrap application-grid">
+        <div class="application-copy reveal">
+          <p class="section-kicker">Aplicação</p>
+          <h2 id="aplicar-title">Se você quer construir um micro-SaaS com IA, comece pela decisão certa.</h2>
+          <p>Preencha seus dados e descreva rapidamente o que você quer construir. A próxima etapa é uma análise de encaixe para a Turma Fundadores.</p>
+        </div>
+
+        <form class="application-form reveal" id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLScx_8AXShdhKWY6QXYP7hd4NPBCIBXnPKVZGUoIf5HpP0xY_A/formResponse" method="POST" target="google-form-target">
+          <div class="field">
+            <label for="name">Nome</label>
+            <input id="name" name="entry.1010340391" type="text" autocomplete="name" placeholder="Seu nome completo" required>
+          </div>
+          <div class="field">
+            <label for="contact">WhatsApp ou e-mail</label>
+            <input id="contact" name="entry.1342268058" type="text" autocomplete="email" placeholder="Onde falar com você" required>
+          </div>
+          <div class="field">
+            <label for="stage">Seu estágio atual</label>
+            <select id="stage" name="entry.1895936734" required>
+              <option value="">Selecione uma opção</option>
+              <option>Tenho uma ideia e quero validar</option>
+              <option>Já comecei a construir</option>
+              <option>Tenho audiência, nicho ou operação</option>
+              <option>Quero criar meu primeiro produto digital</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="idea">O que você quer construir?</label>
+            <textarea id="idea" name="entry.905569930" placeholder="Conte em poucas linhas a sua ideia, nicho ou problema que quer resolver."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Enviar aplicação</button>
+          <div class="form-success" id="form-success" role="status" aria-live="polite" aria-hidden="true">
+            <span class="success-icon" aria-hidden="true"></span>
+            <span class="success-copy">
+              <strong>Aplicação enviada com sucesso</strong>
+              <span>Recebemos seus dados no formulário da Barletta. Agora é só aguardar o próximo contato.</span>
+            </span>
+          </div>
+          <p class="form-footnote" id="form-status">Sua aplicação será enviada diretamente para o Google Forms da Barletta.</p>
+        </form>
+        <iframe name="google-form-target" title="Envio do Google Forms" style="display:none;"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span class="footer-mark">Barletta Consultoria • Estratégia • Negócios • Resultados</span>
+    </div>
+  </footer>
+
+  <div class="success-toast" id="success-toast" role="status" aria-live="polite" aria-hidden="true">
+    <span class="toast-check" aria-hidden="true"></span>
+    <span>
+      <strong>Formulário enviado</strong>
+      <span>Sua aplicação chegou. A Barletta já recebeu seus dados.</span>
+    </span>
+  </div>
+
+  <script>
+    const header = document.querySelector(".site-header");
+    const revealItems = document.querySelectorAll(".reveal");
+    const counters = document.querySelectorAll("[data-count]");
+    const tiltCards = document.querySelectorAll("[data-tilt]");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const updateHeader = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -40px" });
+
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 5, 4) * 80}ms`;
+      revealObserver.observe(item);
+    });
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const element = entry.target;
+        const target = Number(element.dataset.count || 0);
+        const duration = prefersReducedMotion ? 1 : 1200;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          element.textContent = String(Math.max(1, Math.round(target * eased)));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+
+        requestAnimationFrame(tick);
+        countObserver.unobserve(element);
+      });
+    }, { threshold: 0.8 });
+
+    counters.forEach((counter) => countObserver.observe(counter));
+
+    tiltCards.forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - .5;
+        const y = (event.clientY - rect.top) / rect.height - .5;
+        card.style.setProperty("--ry", `${x * 8}deg`);
+        card.style.setProperty("--rx", `${y * -8}deg`);
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--ry", "0deg");
+        card.style.setProperty("--rx", "0deg");
+      });
+    });
+
+    document.querySelector("#lead-form").addEventListener("submit", (event) => {
+      const form = event.currentTarget;
+      const status = document.querySelector("#form-status");
+      const successBox = document.querySelector("#form-success");
+      const successToast = document.querySelector("#success-toast");
+      const submitButton = form.querySelector("button[type='submit']");
+
+      successBox.classList.remove("is-visible");
+      successToast.classList.remove("is-visible");
+      successBox.setAttribute("aria-hidden", "true");
+      successToast.setAttribute("aria-hidden", "true");
+
+      submitButton.textContent = "Enviando...";
+      submitButton.disabled = true;
+      status.textContent = "Enviando sua aplicação com segurança...";
+
+      setTimeout(() => {
+        form.reset();
+        submitButton.textContent = "Aplicação enviada";
+        status.textContent = "Pronto. Sua aplicação foi enviada para o formulário da Barletta.";
+        successBox.classList.add("is-visible");
+        successToast.classList.add("is-visible");
+        successBox.setAttribute("aria-hidden", "false");
+        successToast.setAttribute("aria-hidden", "false");
+
+        setTimeout(() => {
+          submitButton.textContent = "Enviar aplicação";
+          submitButton.disabled = false;
+        }, 2600);
+
+        setTimeout(() => {
+          successToast.classList.remove("is-visible");
+          successToast.setAttribute("aria-hidden", "true");
+        }, 6800);
+      }, 900);
+    });
+
+    const canvas = document.querySelector("#gold-field");
+    const context = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let pointer = { x: -9999, y: -9999 };
+
+    const resizeCanvas = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const count = prefersReducedMotion ? 0 : Math.min(86, Math.floor((width * height) / 18000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - .5) * .24,
+        vy: (Math.random() - .5) * .2,
+        size: Math.random() * 1.6 + .45,
+        glow: Math.random() * .55 + .25
+      }));
+    };
+
+    const renderField = () => {
+      context.clearRect(0, 0, width, height);
+
+      particles.forEach((particle, index) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.y < -20) particle.y = height + 20;
+        if (particle.y > height + 20) particle.y = -20;
+
+        const dx = particle.x - pointer.x;
+        const dy = particle.y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 150) {
+          particle.x += dx / Math.max(distance, 1) * .18;
+          particle.y += dy / Math.max(distance, 1) * .18;
+        }
+
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        context.fillStyle = `rgba(255, 224, 138, ${particle.glow})`;
+        context.shadowColor = "rgba(214, 163, 63, .62)";
+        context.shadowBlur = 10;
+        context.fill();
+        context.shadowBlur = 0;
+
+        for (let next = index + 1; next < particles.length; next += 1) {
+          const other = particles[next];
+          const gap = Math.hypot(particle.x - other.x, particle.y - other.y);
+          if (gap < 116) {
+            context.beginPath();
+            context.moveTo(particle.x, particle.y);
+            context.lineTo(other.x, other.y);
+            context.strokeStyle = `rgba(214, 163, 63, ${(.11 * (1 - gap / 116)).toFixed(3)})`;
+            context.lineWidth = 1;
+            context.stroke();
+          }
+        }
+      });
+
+      if (!prefersReducedMotion) requestAnimationFrame(renderField);
+    };
+
+    if (!prefersReducedMotion) {
+      resizeCanvas();
+      renderField();
+      window.addEventListener("resize", resizeCanvas);
+      window.addEventListener("pointermove", (event) => {
+        pointer = { x: event.clientX, y: event.clientY };
+      }, { passive: true });
+      window.addEventListener("pointerleave", () => {
+        pointer = { x: -9999, y: -9999 };
+      });
+    }
+  </script>
+</body>
+</html>
