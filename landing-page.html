@@ -1089,6 +1089,17 @@
       font-size: 12px;
     }
 
+    .form-footnote.is-error {
+      color: var(--gold-bright);
+    }
+
+    .form-footnote a {
+      color: var(--gold-bright);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     .form-success {
       display: grid;
       grid-template-columns: 46px 1fr;
@@ -1748,7 +1759,7 @@
           <p>Preencha seus dados e descreva rapidamente o que você quer construir. A próxima etapa é uma análise de encaixe para a Turma Fundadores.</p>
         </div>
 
-        <form class="application-form reveal" id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLScx_8AXShdhKWY6QXYP7hd4NPBCIBXnPKVZGUoIf5HpP0xY_A/formResponse" method="POST" target="google-form-target">
+        <form class="application-form reveal" id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLScx_8AXShdhKWY6QXYP7hd4NPBCIBXnPKVZGUoIf5HpP0xY_A/formResponse" method="POST" enctype="application/x-www-form-urlencoded">
           <div class="field">
             <label for="name">Nome</label>
             <input id="name" name="entry.1010340391" type="text" autocomplete="name" placeholder="Seu nome completo" required>
@@ -1781,7 +1792,6 @@
           </div>
           <p class="form-footnote" id="form-status">Sua aplicação será enviada diretamente para o Google Forms da Barletta.</p>
         </form>
-        <iframe name="google-form-target" title="Envio do Google Forms" style="display:none;"></iframe>
       </div>
     </section>
   </main>
@@ -1866,23 +1876,36 @@
       });
     });
 
-    document.querySelector("#lead-form").addEventListener("submit", (event) => {
+    document.querySelector("#lead-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
       const form = event.currentTarget;
       const status = document.querySelector("#form-status");
       const successBox = document.querySelector("#form-success");
       const successToast = document.querySelector("#success-toast");
       const submitButton = form.querySelector("button[type='submit']");
+      const formData = new FormData(form);
+      const payload = new URLSearchParams(formData);
+      const originalButtonText = "Enviar aplicação";
+      const formViewUrl = "https://docs.google.com/forms/d/e/1FAIpQLScx_8AXShdhKWY6QXYP7hd4NPBCIBXnPKVZGUoIf5HpP0xY_A/viewform?usp=pp_url";
 
       successBox.classList.remove("is-visible");
       successToast.classList.remove("is-visible");
       successBox.setAttribute("aria-hidden", "true");
       successToast.setAttribute("aria-hidden", "true");
+      status.classList.remove("is-error");
 
       submitButton.textContent = "Enviando...";
       submitButton.disabled = true;
       status.textContent = "Enviando sua aplicação com segurança...";
 
-      setTimeout(() => {
+      try {
+        await fetch(form.action, {
+          method: "POST",
+          mode: "no-cors",
+          body: payload
+        });
+
         form.reset();
         submitButton.textContent = "Aplicação enviada";
         status.textContent = "Pronto. Sua aplicação foi enviada para o formulário da Barletta.";
@@ -1892,7 +1915,7 @@
         successToast.setAttribute("aria-hidden", "false");
 
         setTimeout(() => {
-          submitButton.textContent = "Enviar aplicação";
+          submitButton.textContent = originalButtonText;
           submitButton.disabled = false;
         }, 2600);
 
@@ -1900,7 +1923,12 @@
           successToast.classList.remove("is-visible");
           successToast.setAttribute("aria-hidden", "true");
         }, 6800);
-      }, 900);
+      } catch (error) {
+        submitButton.textContent = "Tentar novamente";
+        submitButton.disabled = false;
+        status.classList.add("is-error");
+        status.innerHTML = `Não foi possível confirmar o envio automático. <a href="${formViewUrl}" target="_blank" rel="noopener">Abra o formulário oficial</a> para finalizar sua candidatura.`;
+      }
     });
 
     const canvas = document.querySelector("#gold-field");
